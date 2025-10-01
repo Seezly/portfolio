@@ -1,20 +1,8 @@
 ---
-
+import MainLayout from "../layouts/MainLayout.astro";
 ---
-
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Sergio Gutierrez | Full Stack Web Developer</title>
-		<meta name="description" content="Web personal y portafolio de Sergio Gutierrez, full stack web developer especializado en desarrollo web y soluciones tecnológicas" />
-		<link rel="stylesheet" href="styles.css">
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-		
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+<MainLayout>
+	<h1 class="text-4xl font-bold underline">
+		Hello world!
+	</h1>
+</MainLayout>
