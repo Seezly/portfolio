@@ -1,13 +1,26 @@
 ---
 ---
 
-<header>
-    <nav class="w-1/4 mx-auto mt-4 py-4 px-6 bg-purple-900/20 flex justify-center items-center rounded-full sticky top-0 before:blur-xl">
-        <ul class="flex justify-around w-full">
-            <li><a href="/" class="text-white hover:text-gray-400">Inicio</a></li>
-            <li><a href="/about" class="text-white hover:text-gray-400">Sobre mí</a></li>
-            <li><a href="/projects" class="text-white hover:text-gray-400">Proyectos</a></li>
-            <li><a href="/contact" class="text-white hover:text-gray-400">Contacto</a></li>
-        </ul>
-    </nav>
+<header class="w-5/6 mx-auto sticky top-4 mt-4" id="hero-header">
+        <nav id="hero-menu" class="w-full flex justify-between items-center" aria-label="Menú principal">
+                <ul id="nonsticky-links" class="w-1/2 flex gap-6 transition-all duration-300">
+                        <li><a href="/" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Inicio</a></li>
+                        <li><a href="/about" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Sobre mí</a></li>
+                        <li><a href="/projects" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Proyectos</a></li>
+                        <li><a href="/contact" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Contacto</a></li>
+                        <li><a href="/blog" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Blog</a></li>
+                </ul>
+
+                <ul id="sticky-links" class="invisible opacity-0 pointer-events-none py-4 px-6 bg-purple-900/80 flex justify-center items-center gap-6 rounded-full backdrop-blur-md transition-all duration-300">
+                        <li><a href="/" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Inicio</a></li>
+                        <li><a href="/about" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Sobre mí</a></li>
+                        <li><a href="/projects" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Proyectos</a></li>
+                        <li><a href="/contact" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Contacto</a></li>
+                        <li><a href="/blog" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">Blog</a></li>
+                </ul>
+
+                <span id="nonsticky-role" class="transition-all duration-300">Web developer</span>
+        </nav>
 </header>
+
+<script src="/src/js/menu-toggle.js"></script>
