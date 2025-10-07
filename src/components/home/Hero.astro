@@ -1,12 +1,40 @@
 ---
+import { Warp } from '@paper-design/shaders-react';
 ---
-<section id="hero relative">
-    <div class="bg-image -z-1 absolute top-0 left-0 w-full h-full overflow-hidden mix-blend-multiply opacity-10">
-        <img src="/mangadots.jpg" alt="Fondo Hero" class="w-full h-full object-cover">
-    </div>
+<section id="hero" class="w-5/6 mx-auto">
+        <Warp
+            className='absolute top-0 left-0 w-full h-full -z-10 after:content[""] after:bg-[#181818]/80 after:absolute after:top-0 after:left-0 after:w-full after:h-full'
+            colors={["#121212", "#9470ff", "#121212", "#8838ff"]}
+            proportion={0.45}
+            softness={1}
+            distortion={0.25}
+            swirl={0.8}
+            swirlIterations={10}
+            shape="checks"
+            shapeScale={0.1}
+            speed={1}
+            client:load
+        />
+
     <div class="container px-4 py-20">
         <h1 class="text-4xl md:text-[8em] font-bold mb-4">Sergio Gutierrez</h1>
         <p class="text-xl md:text-4xl mb-16">Full Stack Web Developer</p>
         <a href="#projects" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">Ver Proyectos</a>
+        <a href="/cv" class="bg-transparent border border-white hover:bg-white/10 text-white font-bold py-3 px-6 rounded-full transition duration-300 before:blur-xl">Descargar CV</a>
+    </div>
+
+    <div class="container px-4 py-20 flex justify-end items-center gap-8">
+        <span class="w-[5em] block relative cursor-pointer">
+            <img class="w-full object-contain" src="/github.svg" alt="Github">
+        </span>
+        <span class="w-[5em] block relative cursor-pointer">
+            <img class="w-full object-contain" src="/linkedin.svg" alt="LinkedIn">
+        </span>
+        <span class="w-[5em] block relative cursor-pointer">
+            <img class="w-full object-contain" src="/tiktok.svg" alt="TikTok">
+        </span>
+        <span class="w-[5em] block relative cursor-pointer">
+            <img class="w-full object-contain" src="/instagram.svg" alt="Instagram">
+        </span>
     </div>
 </section>

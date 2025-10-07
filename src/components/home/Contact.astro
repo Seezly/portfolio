@@ -1,0 +1,22 @@
+---
+---
+
+<section id="contact" class="w-5/6 mx-auto py-20">
+    <h2 class="text-4xl mb-6 font-bold">Contacto</h2>
+    <p class="text-xl mb-3 leading-8">¿Tienes un proyecto en mente o simplemente quieres saludar? ¡No dudes en contactarme!</p>
+    <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-lg">
+        <div class="mb-4">
+            <label for="name" class="block text-lg mb-2">Nombre:</label>
+            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg bg-gray-800 text-white">
+        </div>
+        <div class="mb-4">
+            <label for="email" class="block text-lg mb-2">Correo Electrónico:</label>
+            <input type="email" id="email" name="_replyto" required class="w-full p-3 border border-gray-300 rounded-lg bg-gray-800 text-white">
+        </div>
+        <div class="mb-4">
+            <label for="message" class="block text-lg mb-2">Mensaje:</label>
+            <textarea id="message" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-lg bg-gray-800 text-white"></textarea>
+        </div>
+        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">Enviar Mensaje</button>
+    </form>
+</section>
