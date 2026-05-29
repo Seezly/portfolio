@@ -63,7 +63,9 @@
 }
 
 body {
-	font-family: "Geist", Helvetica, sans-serif;
+	font-family: "Lato", Helvetica, sans-serif;
+	color: var(--color-ink-black-950);
+	font-weight: medium;
 }
 
 h1,
@@ -72,5 +74,5 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Noto Sans", Helvetica, sans-serif;
+	font-family: "Raleway", Helvetica, sans-serif;
 }
