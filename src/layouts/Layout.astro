@@ -1,3 +1,8 @@
+---
+import Footer from '../components/partials/Footer.astro';
+import Header from '../components/partials/Header.astro';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -12,9 +17,11 @@
 		<link rel="stylesheet" href="/src/styles/global.css">
 		<title>Sergio Gutierrez - Web Developer</title>
 	</head>
-	<body class="bg-ghost-white-50 text-ink-black-950 flex flex-col justify-center items-center gap-4 w-full">
-		<main class="flex flex-col justify-start items-start gap-4 w-full">
+	<body class="bg-ghost-white text-ink-black-950 flex flex-col justify-center items-center w-full">
+		<Header />
+		<main class="flex flex-col justify-start items-start w-full overflow-x-hidden">
 			<slot />
 		</main>
+		<Footer />
 	</body>
 </html>

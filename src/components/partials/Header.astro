@@ -1,0 +1,54 @@
+<header
+	class="w-full flex justify-center items-center py-4 px-8 bg-transparent fixed top-0 z-10"
+>
+	<nav class="py-4 px-8 backdrop-blur">
+		<ul class="flex gap-8">
+			<li>
+				<a href="#" class="hover:text-indigo-ink transition">Home</a>
+			</li>
+			<li>
+				<a href="#" class="hover:text-indigo-ink transition">About</a>
+			</li>
+			<li>
+				<a href="#" class="hover:text-indigo-ink transition"
+					>Portfolio</a>
+			</li>
+			<li>
+				<a href="#" class="hover:text-indigo-ink transition">Contact</a>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+<script>
+	// Change text color between sections
+
+	const portfolio = document.getElementById("portfolio");
+	const header = document.querySelectorAll("header nav ul li a");
+
+	window.addEventListener("scroll", () => {
+		const scrollY = window.scrollY;
+
+		if (scrollY < portfolio?.offsetTop - 180) {
+			header.forEach((link) =>
+				link.classList.add("hover:text-indigo-ink"),
+			);
+			header.forEach((link) =>
+				link.classList.remove(
+					"text-ghost-white",
+					"hover:text-princeton-orange-500",
+				),
+			);
+		} else if (scrollY > portfolio?.offsetTop - 180) {
+			header.forEach((link) =>
+				link.classList.add(
+					"text-ghost-white",
+					"hover:text-princeton-orange-500",
+				),
+			);
+			header.forEach((link) =>
+				link.classList.remove("hover:text-indigo-ink"),
+			);
+		}
+	});
+</script>
