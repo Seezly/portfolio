@@ -1,41 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-	--color-indigo-ink-50: oklch(94.36% 0.023 291.36);
-	--color-indigo-ink-100: oklch(88.49% 0.048 291.94);
-	--color-indigo-ink-200: oklch(76.95% 0.099 291.08);
-	--color-indigo-ink-300: oklch(65.41% 0.153 288.43);
-	--color-indigo-ink-400: oklch(54.46% 0.201 284.1);
-	--color-indigo-ink-500: oklch(45.09% 0.242 277.33);
-	--color-indigo-ink-600: oklch(38.5% 0.202 277.64);
-	--color-indigo-ink-700: oklch(31.72% 0.163 278.63);
-	--color-indigo-ink-800: oklch(24.6% 0.118 280.45);
-	--color-indigo-ink-900: oklch(16.95% 0.068 283.11);
-	--color-indigo-ink-950: oklch(14.58% 0.05 284.91);
+	--color-indigo-ink: #27187e;
 
-	--color-ink-black-50: oklch(94.93% 0.015 286.12);
-	--color-ink-black-100: oklch(89.97% 0.027 283.55);
-	--color-ink-black-200: oklch(79.75% 0.056 282.78);
-	--color-ink-black-300: oklch(69.31% 0.089 280.89);
-	--color-ink-black-400: oklch(58.58% 0.124 279.71);
-	--color-ink-black-500: oklch(48.14% 0.159 276.54);
-	--color-ink-black-600: oklch(41.21% 0.133 276.76);
-	--color-ink-black-700: oklch(34.19% 0.104 276.56);
-	--color-ink-black-800: oklch(26.58% 0.073 278.03);
-	--color-ink-black-900: oklch(18.41% 0.04 279.47);
-	--color-ink-black-950: oklch(15.69% 0.03 279.29);
+	--color-ink-black: #0d0e20;
 
-	--color-ghost-white-50: oklch(92.98% 0.035 285.7);
-	--color-ghost-white-100: oklch(86.22% 0.07 284.83);
-	--color-ghost-white-200: oklch(72.58% 0.146 282.13);
-	--color-ghost-white-300: oklch(59.81% 0.221 277.36);
-	--color-ghost-white-400: oklch(49.73% 0.283 269.85);
-	--color-ghost-white-500: oklch(45.2% 0.313 264.05);
-	--color-ghost-white-600: oklch(38.21% 0.265 264.05);
-	--color-ghost-white-700: oklch(30.87% 0.214 264.05);
-	--color-ghost-white-800: oklch(23.07% 0.16 264.05);
-	--color-ghost-white-900: oklch(14.51% 0.101 264.05);
-	--color-ghost-white-950: oklch(11.77% 0.082 264.05);
+	--color-ghost-white: #f7f7ff;
 
 	--color-punch-red-50: oklch(94.65% 0.024 8.17);
 	--color-punch-red-100: oklch(89.57% 0.049 10.22);
@@ -62,10 +32,29 @@
 	--color-princeton-orange-950: oklch(19.94% 0.043 63.94);
 }
 
+html {
+	scroll-behavior: smooth;
+	text-rendering: optimizeLegibility;
+	text-size-adjust: 100%;
+}
+
 body {
 	font-family: "Lato", Helvetica, sans-serif;
-	color: var(--color-ink-black-950);
+	color: var(--color-ink-black);
 	font-weight: medium;
+	line-height: 2em;
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-ghost-white);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-indigo-ink);
 }
 
 h1,
@@ -75,4 +64,26 @@ h4,
 h5,
 h6 {
 	font-family: "Raleway", Helvetica, sans-serif;
+	letter-spacing: -4%;
+}
+
+p,
+span,
+button,
+a,
+i,
+strong,
+li,
+b,
+em,
+small,
+label,
+input,
+textarea,
+select {
+	letter-spacing: 2%;
+}
+
+button {
+	cursor: pointer;
 }

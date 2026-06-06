@@ -1,12 +1,201 @@
-<section class="flex items-center bg-purple-950 text-ghost-white-50 justify-between py-4 px-8">
-    <div class="flex flex-col gap-4 mb-8">
-        <h2 class="text-3xl font-bold">
-            Projects
-        </h2>
-        <div class="flex flex-col gap-2">
-            <p>
-                I'm Sergio, a Computer Engineering student and independent web developer from Venezuela.
-            </p>
-        </div>
-    </div>
+---
+import Image from "astro/components/Image.astro";
+---
+
+<section
+	id="portfolio"
+	class="w-full min-h-screen flex flex-col gap-8 bg-indigo-ink text-ghost-white justify-between py-4 px-8"
+>
+	<div class="w-full flex justify-center items-center h-screen">
+		<h2 class="text-center text-8xl text-ghost-white font-bold">
+			Portfolio
+		</h2>
+	</div>
+	<div id="projects" class="w-full flex flex-col gap-4 min-h-screen">
+		<article class="w-full flex flex-col lg:flex-row gap-4 py-[25vh]">
+			<div class="w-full lg:w-1/2 overflow-hidden cursor-pointer">
+				<Image
+					width="100"
+					height="100"
+					class="w-full h-full object-cover block hover:scale-102 hover:opacity-80 transition"
+					alt="Some alt text"
+					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.omnichat.ai%2Fwp-content%2Fuploads%2F2025%2F05%2Fwhatsapp-web-desktop-guide-omnichat.webp&f=1&nofb=1&ipt=0a11444cc2ce841957eb8db015cde3a637ba2675e79d075bfedf7fbf06ea11be"
+				/>
+			</div>
+			<div class="flex flex-col justify-between gap-4">
+				<div>
+					<h3 class="text-4xl font-bold">Piel Canela - Ecommerce</h3>
+					<div class="flex justify-start gap-8 items-center">
+						<p>Client. Socopó, Barinas, Venezuela.</p>
+						<span
+							class="bg-ghost-white text-indigo-ink px-2 py-1 uppercase text-sm font-bold"
+							>completed</span
+						>
+					</div>
+				</div>
+				<div class="flex flex-col gap-4">
+					<p>
+						Website developed for a local business to strengthen its
+						digital presence and showcase its products online.
+					</p>
+					<p>
+						Delivered to a real client and currently used as the
+						company's digital storefront.
+					</p>
+				</div>
+				<div>
+					<p>PHP - MySQL - JavaScript - CSS3</p>
+				</div>
+				<div
+					class="w-full justify-center lg:justify-start items-center flex gap-4"
+				>
+					<button class="relative cursor-pointer group">
+						<div
+							class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition"
+						>
+							see case study
+						</div>
+						<div
+							class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost.white group-hover:bg-ghost-white transition"
+						>
+						</div>
+					</button>
+					<button class="relative cursor-pointer group">
+						<div
+							class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition"
+						>
+							live demo
+						</div>
+						<div
+							class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost.white group-hover:bg-ghost-white transition"
+						>
+						</div>
+					</button>
+				</div>
+			</div>
+		</article>
+		<article class="w-full flex flex-col lg:flex-row gap-4 py-[25vh]">
+			<div class="w-full lg:w-1/2 overflow-hidden cursor-pointer">
+				<Image
+					width="100"
+					height="100"
+					class="w-full h-full object-cover block hover:scale-102 hover:opacity-80 transition"
+					alt="Some alt text"
+					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.omnichat.ai%2Fwp-content%2Fuploads%2F2025%2F05%2Fwhatsapp-web-desktop-guide-omnichat.webp&f=1&nofb=1&ipt=0a11444cc2ce841957eb8db015cde3a637ba2675e79d075bfedf7fbf06ea11be"
+				/>
+			</div>
+			<div class="flex flex-col justify-between gap-4">
+				<div>
+					<h3 class="text-4xl font-bold">Piel Canela - Ecommerce</h3>
+					<div class="flex justify-start gap-8 items-center">
+						<p>Client. Socopó, Barinas, Venezuela.</p>
+						<span
+							class="bg-ghost-white text-indigo-ink px-2 py-1 uppercase text-sm font-bold"
+							>completed</span
+						>
+					</div>
+				</div>
+				<div class="flex flex-col gap-4">
+					<p>
+						Website developed for a local business to strengthen its
+						digital presence and showcase its products online.
+					</p>
+					<p>
+						Delivered to a real client and currently used as the
+						company's digital storefront.
+					</p>
+				</div>
+				<div>
+					<p>PHP - MySQL - JavaScript - CSS3</p>
+				</div>
+				<div
+					class="w-full justify-center lg:justify-start items-center flex gap-4"
+				>
+					<button class="relative cursor-pointer group">
+						<div
+							class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition"
+						>
+							see case study
+						</div>
+						<div
+							class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost.white group-hover:bg-ghost-white transition"
+						>
+						</div>
+					</button>
+					<button class="relative cursor-pointer group">
+						<div
+							class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition"
+						>
+							live demo
+						</div>
+						<div
+							class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost.white group-hover:bg-ghost-white transition"
+						>
+						</div>
+					</button>
+				</div>
+			</div>
+		</article>
+	</div>
+	<button
+		id="all-projects"
+		class="relative cursor-pointer group w-fit self-center mt-8 overflow-hidden"
+	>
+		<div
+			class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition"
+		>
+			view all my projects
+		</div>
+		<div
+			class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost.white group-hover:bg-ghost-white transition"
+		>
+		</div>
+	</button>
 </section>
+
+<script>
+	import { waapi, onScroll, utils } from "animejs";
+
+	const projects = utils.$("#projects > article");
+
+	const title = waapi.animate("#portfolio h2", {
+		opacity: [0, 1, 0],
+		translateY: [50, 0],
+		duration: 1000,
+		autoplay: onScroll({
+			container: "body",
+			target: "#portfolio h2",
+			enter: "60% 0%",
+			leave: "20% 100%",
+			sync: 0.25,
+		}),
+	});
+
+	projects.forEach((project, index) => {
+		waapi.animate(project, {
+			opacity: [0, 1, 0],
+			translateY: [50, 0],
+			duration: 1000,
+			autoplay: onScroll({
+				container: "body",
+				target: project,
+				enter: "50% 0%",
+				leave: "20% 100%",
+				sync: 0.25,
+			}),
+		});
+	});
+
+	const buttonAllProjects = waapi.animate("#all-projects", {
+		translateY: ["100%", "0%"],
+		opacity: [0, 1],
+		duration: 1000,
+		autoplay: onScroll({
+			container: "body",
+			target: "#all-projects",
+			enter: "50% 0%",
+			leave: "50% 100%",
+			sync: 0.25,
+		}),
+	});
+</script>

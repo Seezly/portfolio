@@ -1,10 +1,82 @@
-<section class="w-full px-8 py-4 h-screen bg-ghost-white-50 flex flex-col justify-start items-start">
-    <div class="mb-4">
-        <h1 class="text-7xl font-bold">Hi, I'm Sergio</h1>
-        <h2 class="text-3xl">I build <span class="text-purple-900 font-bold">websites</span> and <span class="text-purple-900 font-bold">web applications</span> that help <span class="text-purple-900 font-bold">businesses grow</span></h2>
-    </div>
-    <button class="relative cursor-pointer group">
-        <div class="py-4 px-8 bg-purple-900 text-white uppercase w-full h-full relative z-1 group-hover:bg-ghost-white-50 group-hover:text-purple-900 group-hover:border group-hover:border-purple-900 transition">let's work together</div>
-        <div class="w-full h-full bg-ghost-white-50 absolute top-1 -right-1 border border-purple-900 group-hover:bg-purple-900 transition"></div>
-    </button>
+---
+import Image from "astro/components/Image.astro";
+import catedral from "../assets/catedral.png";
+---
+
+<section
+	id="hero"
+	class="relative overflow-hidden w-full px-8 pb-4 pt-24 h-screen bg-ghost-white flex flex-col justify-start items-start"
+>
+	<div class="mb-8">
+		<h1 class="text-8xl font-bold relative z-2 overflow-hidden pb-2">
+			Hi, I'm Sergio
+		</h1>
+		<h2
+			class="text-5xl lg:text-6xl lg:w-4/5 relative z-2 mix-blend-multiply"
+		>
+			I build <span class="text-indigo-ink font-bold mix-blend-multiply"
+				>websites</span
+			> and <span class="text-indigo-ink font-bold mix-blend-multiply"
+				>web applications</span
+			> that help <span
+				class="text-indigo-ink font-bold mix-blend-multiply"
+				>businesses grow</span
+			>
+		</h2>
+	</div>
+	<button id="work-together" class="relative cursor-pointer group z-2">
+		<div
+			class="py-4 px-8 bg-indigo-ink text-ghost-white uppercase w-full h-full relative z-1 group-hover:bg-ghost-white group-hover:text-indigo-ink group-hover:border group-hover:border-indigo-ink transition"
+		>
+			let's work together
+		</div>
+		<div
+			class="w-full h-full bg-ghost-white absolute top-1 -right-1 border border-indigo-ink group-hover:bg-indigo-ink transition"
+		>
+		</div>
+	</button>
+	<div
+		id="church"
+		class="absolute z-1 bottom-0 translate-y-24 lg:bottom-auto lg:translate-x-24"
+	>
+		<Image
+			priority
+			class="w-full h-full object-cover block"
+			alt="Some alt text"
+			src={catedral}
+		/>
+	</div>
 </section>
+
+<script>
+	import { waapi, stagger, splitText } from "animejs";
+
+	const { chars } = splitText("#hero h1", { words: false, chars: true });
+
+	const title = waapi.animate(chars, {
+		translateY: ["100%", "0%"],
+		duration: 1000,
+		delay: stagger(50),
+	});
+
+	const subtitle = waapi.animate("#hero h2", {
+		transform: ["scale(0.95)", "scale(1)"],
+		opacity: [0, 1],
+		duration: 750,
+		delay: 250,
+	});
+
+	const button = waapi.animate("#work-together", {
+		transform: ["scale(0.9)", "scale(1)"],
+		opacity: [0, 1],
+		duration: 500,
+		delay: 500,
+	});
+
+	const church = waapi.animate("#church", {
+		transform: ["scale(0.8)", "scale(1.01)", "scale(1)"],
+		opacity: [0, 1],
+		duration: 750,
+		delay: 250,
+	});
+</script>
