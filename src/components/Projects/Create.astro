@@ -1,0 +1,365 @@
+---
+import "easymde/dist/easymde.min.css";
+---
+
+<style is:global>
+	@reference "../../styles/global.css";
+
+	.EasyMDEContainer {
+		@apply shadow-[4px_4px_0_0] shadow-indigo-ink border border-indigo-ink;
+	}
+
+	.editor-toolbar,
+	.editor-toolbar.fullscreen {
+		@apply bg-indigo-ink text-ghost-white rounded-none border-none;
+	}
+
+	.EasyMDEContainer .CodeMirror,
+	.editor-toolbar button.active,
+	.editor-toolbar button:hover {
+		@apply bg-ghost-white text-indigo-ink border-none rounded-none;
+	}
+</style>
+
+<section
+	class="overflow-hidden w-full px-8 py-4 min-h-screen bg-ghost-white flex flex-col gap-8"
+>
+	<div class="w-full">
+		<h2 class="text-5xl font-bold">Create Project</h2>
+		<p class="text-2xl">Create portfolio projects</p>
+	</div>
+	<div class="w-full">
+		<form id="postForm" class="w-full flex flex-col gap-4" action="">
+			<label class="w-full" for="file">
+				<span>Image</span>
+				<div class="w-full h-full relative cursor-pointer">
+					<input
+						type="file"
+						name="file"
+						id="file"
+						class="cursor-pointer w-full h-64 py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+						required
+					/>
+					<div
+						class="flex flex-col justify-center items-center absolute bg-ghost-white inset-1"
+					>
+						<div
+							class="w-full h-full flex justify-center items-center flex-col absolute inset-0 z-1"
+						>
+							<p
+								class="text-3xl font-serif font-bold text-indigo-ink"
+							>
+								Upload the top-notch of designing
+							</p>
+							<span class="text-xs">
+								Upload an image (.jpg, .jpeg, .png) to be the
+								main image on the project
+							</span>
+						</div>
+						<img
+							id="imagePlaceholder"
+							src=""
+							alt="blog or project image"
+							class="w-full h-full before:absolute before:inset-0 before:bg-ghost-white before:border-none block object-cover z-1 opacity-0 transition"
+						/>
+					</div>
+				</div>
+			</label>
+			<label class="w-full" for="title">
+				<span>Title</span>
+				<input
+					type="text"
+					name="title"
+					id="title"
+					placeholder="The greatest title of all time!"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					required
+				/>
+			</label>
+			<label class="w-full" for="description">
+				<span>Description</span>
+				<input
+					type="text"
+					name="description"
+					id="description"
+					placeholder="A simple description of the project"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					required
+				/>
+			</label>
+			<label class="w-full" for="purpose">
+				<span>Purpose</span>
+				<input
+					type="text"
+					name="purpose"
+					id="purpose"
+					placeholder="Why this project was created"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					required
+				/>
+			</label>
+			<label class="w-full" for="body">
+				<span>Body</span>
+				<textarea
+					name="body"
+					id="body"
+					placeholder="Full body with full knowledge"
+					class="w-full h-64 py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+				></textarea>
+			</label>
+			<label class="w-full" for="client">
+				<span>Client</span>
+				<input
+					type="text"
+					name="client"
+					id="client"
+					placeholder="Someone's name or company"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					required
+				/>
+			</label>
+			<label class="w-full" for="location">
+				<span>Location</span>
+				<input
+					type="text"
+					name="location"
+					id="location"
+					placeholder="The location of the project"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					required
+				/>
+			</label>
+			<label class="w-full" for="technologies">
+				<span>Technologies</span>
+				<input
+					type="text"
+					name="technologies"
+					id="technologies"
+					placeholder="Technologies used. Separate, them, by, comma"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+				/>
+				<div
+					class="flex justify-start items-center gap-2"
+					id="technologiesContainer"
+				>
+				</div>
+			</label>
+			<label class="w-full" for="live_url">
+				<span>Live URL</span>
+				<input
+					type="url"
+					name="live_url"
+					id="live_url"
+					placeholder="The live URL of the project"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+				/>
+			</label>
+			<label class="w-full" for="github_repo">
+				<span>GitHub Repository</span>
+				<input
+					type="url"
+					name="github_repo"
+					id="github_repo"
+					placeholder="The GitHub repository URL of the project"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+				/>
+			</label>
+			<label class="w-full" for="status">
+				<span>Status</span>
+				<select
+					name="status"
+					id="status"
+					class="w-full py-2 px-4 bg-ghost-white border border-indigo-ink hover:border-indigo-ink/80 text-indigo-ink focus:outline-none focus:ring-1 focus:ring-indigo-ink focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					required
+				>
+					<option value="in progress">In Progress</option>
+					<option value="completed">Completed</option>
+				</select>
+			</label>
+			<button
+				id="send"
+				class="w-full relative cursor-pointer group z-2 mt-8"
+			>
+				<div
+					class="py-4 px-8 bg-indigo-ink text-ghost-white uppercase w-full h-full relative z-1 group-hover:bg-ghost-white group-hover:text-indigo-ink border border-transparent group-hover:border-indigo-ink transition"
+				>
+					Create Project
+				</div>
+				<div
+					class="w-full h-full bg-ghost-white absolute top-1 -right-1 border border-indigo-ink group-hover:bg-indigo-ink transition"
+				>
+				</div>
+			</button>
+		</form>
+	</div>
+</section>
+
+<script>
+	import EasyMDE from "easymde";
+
+	const form = document.getElementById("postForm") as HTMLFormElement;
+	const submit = document.getElementById("send") as HTMLButtonElement;
+
+	const imagePlaceholder = document.getElementById(
+		"imagePlaceholder",
+	) as HTMLImageElement;
+	const fileInput = document.querySelector(
+		"input[type=file]",
+	) as HTMLInputElement;
+
+	const titleInput = document.getElementById("title");
+	const descriptionInput = document.getElementById("description");
+	const purposeInput = document.getElementById("purpose");
+	const clientInput = document.getElementById("client");
+	const locationInput = document.getElementById("location");
+	const liveInput = document.getElementById("live_url");
+	const githubInput = document.getElementById("github_repo");
+	const statusInput = document.getElementById("status");
+
+	const technologiesInput = document.getElementById(
+		"technologies",
+	) as HTMLInputElement;
+	const technologiesContainer = document.getElementById(
+		"technologiesContainer",
+	) as HTMLDivElement;
+	let technologies: string[] = [];
+
+	const textarea = document.getElementById("body") as HTMLTextAreaElement;
+	let easyMDE = null;
+
+	if (textarea) {
+		easyMDE = new EasyMDE({
+			element: textarea,
+			toolbar: [
+				"bold",
+				"italic",
+				"heading",
+				"|",
+				"quote",
+				"unordered-list",
+				"ordered-list",
+				"|",
+				"link",
+				"image",
+				"|",
+				"preview",
+				"side-by-side",
+				"fullscreen",
+			],
+		});
+	}
+
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault();
+
+		if (!form.checkValidity()) {
+			form.reportValidity();
+			return;
+		}
+
+		const formData = new FormData();
+
+		const body = easyMDE?.value().trim() ?? "";
+		if (!body) {
+			if (easyMDE) easyMDE.codemirror.focus();
+			return;
+		}
+		formData.set("body", body);
+
+		if (technologies.length <= 0) {
+			form.reportValidity();
+			return;
+		}
+		technologies.forEach((t) => formData.append("technologies[]", t));
+
+		formData.set("title", titleInput?.value);
+		formData.set("description", descriptionInput?.value);
+		formData.set("purpose", purposeInput?.value);
+		formData.set("client", clientInput?.value);
+		formData.set("location", locationInput?.value);
+		formData.set("live_url", liveInput?.value);
+		formData.set("github_repo", githubInput?.value);
+		formData.set("status", statusInput?.value);
+
+		const uploadData = new FormData();
+
+		if (fileInput?.files && fileInput?.files[0]) {
+			uploadData.append("file", fileInput?.files[0]);
+			uploadData.append(
+				"dir",
+				`/project_images/${fileInput?.files[0].name}_${fileInput?.files[0].lastModified}`,
+			);
+		}
+
+		try {
+			const response = await fetch("/api/storage", {
+				method: "POST",
+				body: uploadData,
+			});
+
+			const data = await response.json();
+			if (!data.success) {
+				throw new Error(data.message);
+			}
+
+			formData.append("image", data.data.path);
+
+			const projectResponse = await fetch("/api/projects", {
+				method: "POST",
+				body: formData,
+			});
+
+			const project = await projectResponse.json();
+			if (!project.success) {
+				throw new Error(project.message);
+			}
+
+			form.reset();
+			technologies = [];
+			easyMDE?.cleanup();
+			window.location.reload();
+		} catch (error) {
+			console.error(error);
+		}
+	});
+
+	fileInput?.addEventListener("change", (e) => {
+		if (fileInput?.files && fileInput?.files[0]) {
+			const reader = new FileReader();
+
+			reader.addEventListener("load", (e) => {
+				if (e.target?.result) {
+					imagePlaceholder.src = e.target.result as string;
+					imagePlaceholder.classList.remove("opacity-0");
+					imagePlaceholder.classList.add("opacity-100");
+				}
+			});
+
+			reader.readAsDataURL(fileInput?.files[0]);
+		}
+	});
+
+	technologiesInput?.addEventListener("keydown", (e) => {
+		const input = e.target as HTMLInputElement;
+
+		if (e.key === "Enter" || e.key === ",") {
+			e.preventDefault();
+			const value = input.value.replace(/,/g, "").trim();
+
+			if (value) {
+				technologies.push(value);
+				input.value = "";
+			}
+		}
+
+		if (technologies.length > 0) {
+			technologiesContainer.innerHTML = "";
+			technologies.map((tag) => {
+				technologiesContainer.insertAdjacentHTML(
+					"beforeend",
+					`<span class="text-sm text-indigo-ink font-bold">${tag}</span>`,
+				);
+			});
+		}
+	});
+</script>
