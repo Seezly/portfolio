@@ -1,6 +1,6 @@
 ---
 import Image from "astro/components/Image.astro";
-import catedral from "../assets/catedral.png";
+import catedral from "../../assets/catedral.png";
 ---
 
 <section
@@ -24,9 +24,13 @@ import catedral from "../assets/catedral.png";
 			>
 		</h2>
 	</div>
-	<button id="work-together" class="relative cursor-pointer group z-2">
+	<a
+		id="work-together"
+		href="#contact"
+		class="relative cursor-pointer group z-2"
+	>
 		<div
-			class="py-4 px-8 bg-indigo-ink text-ghost-white uppercase w-full h-full relative z-1 group-hover:bg-ghost-white group-hover:text-indigo-ink group-hover:border group-hover:border-indigo-ink transition"
+			class="py-4 px-8 bg-indigo-ink text-ghost-white uppercase w-full h-full relative z-1 group-hover:bg-ghost-white group-hover:text-indigo-ink border border-indigo-ink transition"
 		>
 			let's work together
 		</div>
@@ -34,7 +38,7 @@ import catedral from "../assets/catedral.png";
 			class="w-full h-full bg-ghost-white absolute top-1 -right-1 border border-indigo-ink group-hover:bg-indigo-ink transition"
 		>
 		</div>
-	</button>
+	</a>
 	<div
 		id="church"
 		class="absolute z-1 bottom-0 translate-y-24 lg:bottom-auto lg:translate-x-24"
@@ -42,7 +46,7 @@ import catedral from "../assets/catedral.png";
 		<Image
 			priority
 			class="w-full h-full object-cover block"
-			alt="Some alt text"
+			alt="Barinas' Main Cathedral"
 			src={catedral}
 		/>
 	</div>
@@ -78,5 +82,14 @@ import catedral from "../assets/catedral.png";
 		opacity: [0, 1],
 		duration: 750,
 		delay: 250,
+	});
+
+	const ctaButton = document.getElementById("work-together");
+	ctaButton.addEventListener("click", () => {
+		try {
+			window.posthog?.capture("hero_cta_clicked");
+		} catch (err) {
+			window.posthog?.captureException(err);
+		}
 	});
 </script>

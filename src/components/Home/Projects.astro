@@ -1,0 +1,192 @@
+---
+import Image from "astro/components/Image.astro";
+import { getProjects } from "../../db/Project.ts";
+import { getFile } from "../../db/Storage.ts";
+import { supabaseServer } from "../../db/supabase";
+
+const supabase = Astro.locals.supabase;
+
+const { data: projects = [] } = await getProjects(supabase, 4);
+
+const processedProjects =
+	projects?.map((project) => {
+		const url = getFile(supabase, "portfolio", project.image);
+
+		return {
+			...project,
+			url,
+		};
+	}) ?? [];
+---
+
+<section
+	id="portfolio"
+	class="w-full min-h-screen flex flex-col gap-8 bg-indigo-ink text-ghost-white justify-between py-4 px-8"
+>
+	<div class="w-full flex justify-center items-center h-screen">
+		<h2 class="text-center text-8xl text-ghost-white font-bold">
+			Portfolio
+		</h2>
+	</div>
+	<div id="projects" class="w-full flex flex-col gap-4 min-h-screen">
+		{
+			processedProjects?.map((project) => (
+				<article
+					data-project={project.id}
+					class="w-full flex flex-col lg:flex-row gap-4 py-[25vh]"
+				>
+					<div class="w-full lg:w-1/2 overflow-hidden cursor-pointer">
+						<Image
+							width="800"
+							height="500"
+							class="w-full h-full object-cover block hover:scale-102 hover:opacity-80 transition"
+							alt={`Thumbnail for ${project.title}`}
+							src={project.url}
+						/>
+					</div>
+					<div class="flex flex-col justify-between gap-4">
+						<div>
+							<h3 class="text-4xl font-bold">{project.title}</h3>
+							<div class="flex justify-start gap-8 items-center">
+								<p>
+									{project.client}. {project.location}.
+								</p>
+								<span class="bg-ghost-white text-indigo-ink px-2 py-1 uppercase text-sm font-bold">
+									{project.status}
+								</span>
+							</div>
+						</div>
+						<div class="flex flex-col gap-4">
+							<p>{project.description}</p>
+							<p>{project.purpose}</p>
+						</div>
+						<div>
+							{project.technologies?.map((tech: string) => (
+								<span class="bg-ghost-white text-indigo-ink px-2 py-1 uppercase text-sm font-bold mr-2">
+									{tech}
+								</span>
+							))}
+						</div>
+						<div class="w-full justify-center lg:justify-start items-center flex gap-4">
+							<a
+								class="relative cursor-pointer group"
+								href={project.url}
+								data-case-study={project.id}
+								data-title={project.title}
+							>
+								<div class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition">
+									see case study
+								</div>
+								<div class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost-white group-hover:bg-ghost-white transition" />
+							</a>
+							<a
+								class="relative cursor-pointer group"
+								href={
+									project.live_url
+										? project.live_url
+										: project.github_repo
+								}
+								target="_blank"
+								rel="noopener noreferrer"
+								data-code={project.id}
+								data-title={project.title}
+							>
+								<div class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition">
+									{project.live_url
+										? "live demo"
+										: "github repo"}
+								</div>
+								<div class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost-white group-hover:bg-ghost-white transition" />
+							</a>
+						</div>
+					</div>
+				</article>
+			))
+		}
+	</div>
+	<button
+		id="all-projects"
+		class="relative cursor-pointer group w-fit self-center mt-8"
+	>
+		<div
+			class="py-4 px-8 text-indigo-ink bg-ghost-white uppercase border border-indigo-ink w-full h-full relative z-1 group-hover:text-ghost-white group-hover:bg-indigo-ink group-hover:border group-hover:border-ghost-white transition"
+		>
+			view all my projects
+		</div>
+		<div
+			class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost-white group-hover:bg-ghost-white transition"
+		>
+		</div>
+	</button>
+</section>
+
+<script>
+	import { waapi, onScroll, utils } from "animejs";
+
+	const projects = utils.$("#projects > article");
+
+	const title = waapi.animate("#portfolio h2", {
+		opacity: [0, 1, 0],
+		scale: [0.9, 1, 0.9],
+		translateY: [50, 0],
+		duration: 1000,
+		autoplay: onScroll({
+			container: "body",
+			target: "#portfolio h2",
+			enter: "100% 0%",
+			leave: "0% 100%",
+			sync: 0.5,
+		}),
+	});
+
+	projects.forEach((project, index) => {
+		waapi.animate(project, {
+			opacity: [0.1, 1, 0.1],
+			scale: [0.9, 1, 0.9],
+			translateY: [50, 0],
+			duration: 1000,
+			autoplay: onScroll({
+				container: "body",
+				target: project,
+				enter: "100% 0%",
+				leave: "0% 100%",
+				sync: 0.5,
+			}),
+		});
+	});
+
+	const buttonAllProjects = waapi.animate("#all-projects", {
+		translateY: [40, 0],
+		opacity: [0, 1],
+		duration: 1000,
+		autoplay: onScroll({
+			container: "body",
+			target: "#all-projects",
+			enter: "85% 0%",
+			leave: "20% 100%",
+			sync: 0.25,
+		}),
+	});
+
+	document.querySelectorAll("[data-case-study]").forEach((btn) => {
+		btn.addEventListener("click", () => {
+			window.posthog?.capture("portfolio_case_study_clicked", {
+				project_id: btn.getAttribute("data-case-study"),
+				project_title: btn.getAttribute("data-title"),
+			});
+		});
+	});
+
+	document.querySelectorAll("[data-code]").forEach((btn) => {
+		btn.addEventListener("click", () => {
+			window.posthog?.capture("portfolio_code_clicked", {
+				project_id: btn.getAttribute("data-code"),
+				project_title: btn.getAttribute("data-title"),
+			});
+		});
+	});
+
+	document.getElementById("all-projects")?.addEventListener("click", () => {
+		window.posthog?.capture("portfolio_view_all_clicked");
+	});
+</script>
