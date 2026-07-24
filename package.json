@@ -12,9 +12,20 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^10.1.4",
+    "@supabase/ssr": "^0.12.1",
+    "@supabase/supabase-js": "^2.108.1",
     "@tailwindcss/vite": "^4.3.0",
     "animejs": "^4.4.1",
-    "astro": "^6.3.1",
+    "astro": "6.4.6",
+    "chart.js": "^4.5.1",
+    "easymde": "^2.21.0",
+    "pg": "^8.21.0",
+    "posthog-js": "^1.398.4",
+    "posthog-node": "^5.40.0",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0"
   }
 }
