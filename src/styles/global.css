@@ -30,6 +30,9 @@
 	--color-princeton-orange-800: oklch(37.36% 0.091 55.16);
 	--color-princeton-orange-900: oklch(24.33% 0.054 61.79);
 	--color-princeton-orange-950: oklch(19.94% 0.043 63.94);
+
+	--font-sans: "Lato", Helvetica, sans-serif;
+	--font-serif: "Raleway", Helvetica, sans-serif;
 }
 
 html {
