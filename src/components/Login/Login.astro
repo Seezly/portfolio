@@ -1,0 +1,108 @@
+<section
+	class="overflow-hidden w-full px-8 pb-4 pt-24 h-screen bg-ghost-white flex flex-col justify-center items-center"
+>
+	<div class="relative w-full lg:max-w-lg h-128">
+		<div
+			class="py-4 px-8 bg-indigo-ink text-ghost-white w-full h-full relative z-1"
+		>
+			<div class="flex flex-col gap-2 justify-center items-center mb-8">
+				<h1 class="text-5xl font-bold">Log In</h1>
+				<p>Administrative area, staff (me) only</p>
+			</div>
+			<form
+				action="/api/auth/sign-in"
+				method="POST"
+				class="w-full flex flex-col justify-center items-center gap-4"
+			>
+				<label class="w-full" for="email">
+					<span>Email</span>
+					<input
+						type="email"
+						name="email"
+						id="email"
+						placeholder="me@dev.com"
+						class="w-full py-2 px-4 bg-transparent border border-ghost-white hover:border-ghost-white/80 text-ghost-white focus:outline-none focus:ring-1 focus:ring-ghost-white focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					/>
+				</label>
+				<label class="w-full" for="password">
+					<span>Password</span>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						placeholder="some plain text password"
+						class="w-full py-2 px-4 bg-transparent border border-ghost-white hover:border-ghost-white/80 text-ghost-white focus:outline-none focus:ring-1 focus:ring-ghost-white focus:border-transparent transition shadow-[4px_4px_0_0] shadow-indigo-ink"
+					/>
+				</label>
+				<button
+					id="login"
+					class="w-full relative cursor-pointer group z-2 mt-8"
+				>
+					<div
+						class="py-4 px-8 bg-ghost-white text-indigo-ink uppercase w-full h-full relative z-1 group-hover:bg-indigo-ink group-hover:text-ghost-white group-hover:border group-hover:border-ghost-white transition"
+					>
+						log in
+					</div>
+					<div
+						class="w-full h-full bg-indigo-ink absolute top-1 -right-1 border border-ghost-white group-hover:bg-ghost-white transition"
+					>
+					</div>
+				</button>
+			</form>
+		</div>
+		<div
+			class="w-full h-full bg-ghost-white absolute top-1 -right-1 border border-indigo-ink"
+		>
+		</div>
+	</div>
+</section>
+
+<script>
+	const login = document.getElementById("login");
+
+	window.addEventListener("DOMContentLoaded", async () => {
+		login?.addEventListener("click", async (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+
+			const email = document.querySelector("input[name=email]")?.value;
+			const password = document.querySelector(
+				"input[name=password]",
+			)?.value;
+
+			if (!email) {
+				console.error("Sorry man, you gotta enter a valid email");
+			}
+
+			if (!password) {
+				console.error("Nope, don't even try it");
+			}
+
+			try {
+				const sessionId = window.posthog?.get_session_id?.() || null;
+
+				const res = await fetch("/api/auth/sign-in", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password }),
+				});
+
+				if (!res.ok) {
+					const err = await res.text();
+					throw new Error(err || "Sign-in failed");
+				}
+
+				const data = await res.json();
+
+				window.posthog?.identify(email);
+				window.posthog?.capture("admin_signed_in", {
+					$session_id: sessionId || undefined,
+				});
+				window.location.assign(`/admin`);
+			} catch (error) {
+				window.posthog?.captureException(error);
+				console.error(error);
+			}
+		});
+	});
+</script>
