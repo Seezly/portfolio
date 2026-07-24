@@ -1,0 +1,34 @@
+---
+import Footer from "../components/partials/Footer.astro";
+import Sidebar from "../components/partials/Sidebar.astro";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/src/styles/global.css" />
+		<title>{`${title} | Sergio Gutierrez - Web Developer`}</title>
+	</head>
+	<body class="bg-ghost-white text-ink-black flex w-full">
+		<Sidebar />
+		<main
+			class="flex flex-col justify-start items-start w-full overflow-x-hidden pt-12 lg:pt-0"
+		>
+			<slot />
+			<Footer />
+		</main>
+	</body>
+</html>
