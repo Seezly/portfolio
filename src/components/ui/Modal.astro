@@ -1,0 +1,56 @@
+---
+const { title, description, button } = Astro.props;
+---
+
+<div class="fixed inset-0 z-10 opacity-0 pointer-events-none" id="modal">
+	<div class="relative h-full w-full flex justify-center items-center">
+		<div class="bg-ink-black/90 h-full w-full absolute"></div>
+		<div
+			class="relative w-xl py-4 px-8 text-ghost-white bg-indigo-ink z-1 shadow-[4px_4px_0_0] shadow-ghost-white border border-indigo-ink"
+		>
+			<h2 class="text-5xl font-bold mb-4">{title || "Title"}</h2>
+			<hr />
+			<p class="my-4">
+				{description || "Description"}
+			</p>
+			<hr />
+			<div class="mt-4 flex justify-end items-center gap-8">
+				<button id="cancel">Cancel</button>
+				{button && <button id="continue">{button}</button>}
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	const cancel = document.getElementById("cancel") as HTMLButtonElement;
+	const done = document.getElementById("continue") as HTMLButtonElement;
+	const modal = document.getElementById("modal") as HTMLElement;
+
+	let info: string | null = null;
+
+	cancel.addEventListener("click", () => {
+		window.dispatchEvent(
+			new CustomEvent("modal:cancel", { detail: false }),
+		);
+		window.dispatchEvent(new CustomEvent("modal:close", { detail: true }));
+		info = null;
+	});
+
+	done.addEventListener("click", () => {
+		window.dispatchEvent(
+			new CustomEvent("modal:continue", { detail: info }),
+		);
+		window.dispatchEvent(new CustomEvent("modal:close", { detail: true }));
+		info = null;
+	});
+
+	window.addEventListener("modal:show", (e) => {
+		modal.classList.remove("pointer-events-none", "opacity-0");
+		info = e.detail;
+	});
+
+	window.addEventListener("modal:close", () => {
+		modal.classList.add("pointer-events-none", "opacity-0");
+	});
+</script>
