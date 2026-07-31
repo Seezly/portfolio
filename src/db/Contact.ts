@@ -17,31 +17,48 @@ interface QueryFilter {
 	value: string;
 }
 
+const PAGE_SIZE: number = 10;
+
 export const getContacts = async (
 	supabase: SupabaseClient,
-	limit?: number,
-	contains?: QueryFilter | null,
+	page: number = 1,
+	limit?: number | null,
+	contains?: string | null,
 	where?: QueryFilter | null,
 ) => {
-	let query = supabase.from("contacts").select();
+	let query = supabase.from("contacts").select("*", { count: "exact" });
 
 	if (contains) {
-		query = query?.eq(contains?.column, contains?.value);
+		query = query?.or(`name.ilike.%${contains}%,email.ilike.%${contains}%`);
 	}
 
 	if (where) {
 		query = query?.eq(where?.column, where?.value);
 	}
 
+	const contacts = await query.order("created_at", { ascending: false });
+
 	if (limit) {
 		query = query?.limit(limit);
+	} else if (page) {
+		const from = (page - 1) * PAGE_SIZE;
+		const to = from + PAGE_SIZE - 1;
+
+		query = query?.range(from, to);
 	}
 
-	const contacts = await query;
+	if (contacts.error) {
+		return { success: false, message: contacts.error.message };
+	}
 
-	return (
-		contacts.data ?? "Contacts not found... Time to make some new friends!"
-	);
+	const totalPages: number = Math.ceil(contacts?.count / PAGE_SIZE) || 0;
+
+	// contacts.data ?? "Contacts not found... Time to make some new friends!"
+	return {
+		success: true,
+		data: { contacts: contacts.data ?? [], count: contacts.count ?? 0 },
+		totalPages,
+	};
 };
 
 export const getContactById = async (supabase: SupabaseClient, id: number) => {

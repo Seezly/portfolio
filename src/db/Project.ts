@@ -22,16 +22,21 @@ interface QueryFilter {
 	value: string;
 }
 
+const PAGE_SIZE: number = 10;
+
 export const getProjects = async (
 	supabase: SupabaseClient,
-	limit?: number,
-	contains?: QueryFilter | null,
+	page: number = 1,
+	limit?: number | null,
+	contains?: string | null,
 	where?: QueryFilter | null,
 ) => {
-	let query = supabase.from("projects").select();
+	let query = supabase.from("projects").select("*", { count: "exact" });
 
 	if (contains) {
-		query = query?.eq(contains?.column, contains?.value);
+		query = query?.or(
+			`title.ilike.%${contains}%,technologies.contains.%${contains}%`,
+		);
 	}
 
 	if (where) {
@@ -40,11 +45,27 @@ export const getProjects = async (
 
 	if (limit) {
 		query = query?.limit(limit);
+	} else if (page) {
+		const from = (page - 1) * PAGE_SIZE;
+		const to = from + PAGE_SIZE - 1;
+
+		query = query?.range(from, to);
 	}
 
-	const projects = await query;
+	const projects = await query.order("created_at", { ascending: false });
 
-	return projects.data ?? "Software is yet to be coded...";
+	if (projects.error) {
+		return { success: false, message: projects.error.message };
+	}
+
+	const totalPages: number = Math.ceil(projects?.count / PAGE_SIZE) || 0;
+
+	// return projects.data ?? "Software is yet to be coded...";
+	return {
+		success: true,
+		data: { projects: projects.data ?? [], count: projects.count ?? 0 },
+		totalPages,
+	};
 };
 
 export const getProjectById = async (supabase: SupabaseClient, id: number) => {

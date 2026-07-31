@@ -14,29 +14,50 @@ interface QueryFilter {
 	value: string;
 }
 
+const PAGE_SIZE: number = 10;
+
 export const getPosts = async (
 	supabase: SupabaseClient,
-	limit?: number,
-	contains?: QueryFilter | null,
+	page: number = 1,
+	limit?: number | null,
+	contains?: string | null,
 	where?: QueryFilter | null,
 ) => {
-	let query = supabase.from("posts").select();
+	let query = supabase.from("posts").select("*", { count: "exact" });
 
 	if (contains) {
-		query = query?.ilike(contains?.column, contains?.value);
+		query = query?.or(
+			`title.ilike.%${contains}%,tags.contains.%${contains}%`,
+		);
 	}
 
 	if (where) {
 		query = query?.eq(where?.column, where?.value);
 	}
 
+	const posts = await query.order("created_at", { ascending: false });
+
 	if (limit) {
 		query = query?.limit(limit);
+	} else if (page) {
+		const from = (page - 1) * PAGE_SIZE;
+		const to = from + PAGE_SIZE - 1;
+
+		query = query?.range(from, to);
 	}
 
-	const posts = await query;
+	if (posts.error) {
+		return { success: false, message: posts.error.message };
+	}
 
-	return posts.data ?? "History is yet to be written...";
+	const totalPages: number = Math.ceil(posts?.count) / PAGE_SIZE || 0;
+
+	// return posts ?? "History is yet to be written...";
+	return {
+		success: true,
+		data: { posts: posts.data ?? [], count: posts.count ?? 0 },
+		totalPages,
+	};
 };
 
 export const getPostById = async (supabase: SupabaseClient, id: number) => {
