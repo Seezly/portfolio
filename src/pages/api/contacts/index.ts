@@ -13,12 +13,7 @@ export const GET: APIRoute = async (context) => {
 	const limitParam = url.searchParams.get("limit");
 	const limit = limitParam ? parseInt(limitParam, 10) : 10;
 
-	const containsCol = url.searchParams.get("contains_col");
-	const containsVal = url.searchParams.get("contains_val");
-	const contains =
-		containsCol && containsVal
-			? { column: containsCol, value: containsVal }
-			: null;
+	const contains = url.searchParams.get("contains");
 
 	const whereCol = url.searchParams.get("where_col");
 	const whereVal = url.searchParams.get("where_val");
@@ -28,10 +23,7 @@ export const GET: APIRoute = async (context) => {
 
 	if (
 		!whereCol?.includes("created_at") ||
-		!whereCol?.includes("updated_at") ||
-		!containsCol?.includes("title") ||
-		!containsCol?.includes("description") ||
-		!containsCol?.includes("tags")
+		!whereCol?.includes("updated_at")
 	) {
 		return new Response(
 			JSON.stringify({ error: "What are you trying to do?" }),
