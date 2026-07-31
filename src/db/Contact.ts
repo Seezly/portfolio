@@ -56,7 +56,8 @@ export const getContacts = async (
 	// contacts.data ?? "Contacts not found... Time to make some new friends!"
 	return {
 		success: true,
-		data: { contacts: contacts.data ?? [], count: contacts.count ?? 0 },
+		data: contacts.data ?? [],
+		count: contacts.count ?? 0,
 		totalPages,
 	};
 };

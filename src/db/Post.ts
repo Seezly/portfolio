@@ -55,7 +55,8 @@ export const getPosts = async (
 	// return posts ?? "History is yet to be written...";
 	return {
 		success: true,
-		data: { posts: posts.data ?? [], count: posts.count ?? 0 },
+		data: posts.data ?? [],
+		count: posts.count ?? 0,
 		totalPages,
 	};
 };

@@ -63,7 +63,8 @@ export const getProjects = async (
 	// return projects.data ?? "Software is yet to be coded...";
 	return {
 		success: true,
-		data: { projects: projects.data ?? [], count: projects.count ?? 0 },
+		data: projects.data ?? [],
+		count: projects.count ?? 0,
 		totalPages,
 	};
 };
