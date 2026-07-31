@@ -5,9 +5,50 @@ import { supabaseServer } from "../../../db/supabase";
 
 export const GET: APIRoute = async (context) => {
 	const supabase = supabaseServer(context);
+	const url = new URL(context.request.url);
+
+	const pageParam = url.searchParams.get("page");
+	const page = pageParam ? parseInt(pageParam, 10) : 1;
+
+	const limitParam = url.searchParams.get("limit");
+	const limit = limitParam ? parseInt(limitParam, 10) : 10;
+
+	const containsCol = url.searchParams.get("contains_col");
+	const containsVal = url.searchParams.get("contains_val");
+	const contains =
+		containsCol && containsVal
+			? { column: containsCol, value: containsVal }
+			: null;
+
+	const whereCol = url.searchParams.get("where_col");
+	const whereVal = url.searchParams.get("where_val");
+
+	const where =
+		whereCol && whereVal ? { column: whereCol, value: whereVal } : null;
+
+	if (
+		!whereCol?.includes("created_at") ||
+		!whereCol?.includes("updated_at") ||
+		!containsCol?.includes("title") ||
+		!containsCol?.includes("description") ||
+		!containsCol?.includes("tags")
+	) {
+		return new Response(
+			JSON.stringify({ error: "What are you trying to do?" }),
+			{
+				status: 403,
+			},
+		);
+	}
 
 	try {
-		const contacts = await getContacts(supabase);
+		const contacts = await getContacts(
+			supabase,
+			page,
+			limit,
+			contains,
+			where,
+		);
 
 		if (contacts) {
 			return new Response(JSON.stringify(contacts), {

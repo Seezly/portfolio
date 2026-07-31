@@ -7,6 +7,9 @@ export const GET: APIRoute = async (context) => {
 	const supabase = supabaseServer(context);
 	const url = new URL(context.request.url);
 
+	const pageParam = url.searchParams.get("page");
+	const page = pageParam ? parseInt(pageParam, 10) : 1;
+
 	const limitParam = url.searchParams.get("limit");
 	const limit = limitParam ? parseInt(limitParam, 10) : 10;
 
@@ -39,7 +42,7 @@ export const GET: APIRoute = async (context) => {
 	}
 
 	try {
-		const posts = await getPosts(supabase, limit, contains, where);
+		const posts = await getPosts(supabase, page, limit, contains, where);
 
 		if (posts) {
 			return new Response(JSON.stringify(posts), {
